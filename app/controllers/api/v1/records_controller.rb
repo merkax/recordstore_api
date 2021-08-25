@@ -1,4 +1,5 @@
 class Api::V1::RecordsController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_record, only: [:show, :update, :destroy]
 
   # GET /records
