@@ -4,7 +4,7 @@ class Api::V1::RecordsController < ApplicationController
 
   # GET /records
   def index
-    @records = Record.all
+    @records = current_user.records.all
 
     render json: @records
   end
@@ -16,7 +16,7 @@ class Api::V1::RecordsController < ApplicationController
 
   # POST /records
   def create
-    @record = Record.new(record_params)
+    @record = current_user.records.build(record_params)
 
     if @record.save
       render json: @record, status: :created, location: @record
@@ -42,7 +42,7 @@ class Api::V1::RecordsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_record
-      @record = Record.find(params[:id])
+      @record = current_user.records.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
